@@ -1,0 +1,14 @@
+mkdir FinaProject
+cd FinalProject
+git clone https://github.com/Souradip-Nath/DockerizingAchiStar.git
+cd DockerizingAchiStar
+vi app_v1.py
+cat app_v1.py
+git add .
+git commit -m "Commit:1"
+git push -u origin master
+
+
+
+git commit --amend
+git push --force -u origin master
