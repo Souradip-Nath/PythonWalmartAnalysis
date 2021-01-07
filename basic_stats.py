@@ -8,11 +8,6 @@ def max_sale_store(df2):
     print("Store with Maximum Sales")
     print(df3.head(1).to_string(index=False))
 
-#df4=df2[["Store","Weekly_Sales"]]
-#print(df4.reset_index(level=0,inplace=True))
-#df5=df2[["Store","Weekly_Sales"]].groupby(["Store"])["Weekly_Sales"].std().reset_index(name="STD_Sales").sort_values("STD_Sales",ascending=False)
-#df6=df2[["Store","Weekly_Sales"]].groupby(["Store"])["Weekly_Sales"].mean().reset_index(name="Mean_Sales")
-
 def max_std_store(df2):
     df6=pd.merge(df2[["Store","Weekly_Sales"]].groupby(["Store"])["Weekly_Sales"].std().reset_index(name="STD_Sales")\
     .sort_values("STD_Sales",ascending=False),df2[["Store","Weekly_Sales"]].groupby(["Store"])["Weekly_Sales"]\
@@ -47,7 +42,7 @@ def quaterly_growth_rate(df2):
     print("\n")
     print(df4.head().to_string(index=False))
 
-#def high_sale_holidays:
-print("\nHolidays where sale went higher than non-holiday sales\n")
-mean_hol=df2[df2['Holiday_Flag']==0][["Weekly_Sales"]].mean()["Weekly_Sales"]
-print((df2["Date"][(df2["Holiday_Flag"]==1)&(df2["Weekly_Sales"]>mean_hol)]).drop_duplicates().to_frame().to_string(index=False))
+def high_sale_holidays(df2):
+    print("\nHolidays where sale went higher than non-holiday sales\n")
+    mean_hol=df2[df2['Holiday_Flag']==0][["Weekly_Sales"]].mean()["Weekly_Sales"]
+    print((df2["Date"][(df2["Holiday_Flag"]==1)&(df2["Weekly_Sales"]>mean_hol)]).drop_duplicates().to_frame().to_string(index=False))
