@@ -1,7 +1,8 @@
 import read_data
 import pandas as pd
+import numpy as np
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
-path=r"C:\Users\souradipn408\Documents\Data Science\ScikitLearn\simplilearnProject\Walmart_Store_sales.csv"
+path=r"C:\Users\souradipn408\Documents\Data Science\ScikitLearn\PythonWalmartAnalysis\Walmart_Store_sales.csv"
 df2=read_data.read_data(path)
 def max_sale_store(df2):
     df3=df2.groupby(["Store"])["Weekly_Sales"].sum().reset_index(name="Overall_Sales").sort_values("Overall_Sales",ascending=False)
@@ -46,3 +47,12 @@ def high_sale_holidays(df2):
     print("\nHolidays where sale went higher than non-holiday sales\n")
     mean_hol=df2[df2['Holiday_Flag']==0][["Weekly_Sales"]].mean()["Weekly_Sales"]
     print((df2["Date"][(df2["Holiday_Flag"]==1)&(df2["Weekly_Sales"]>mean_hol)]).drop_duplicates().to_frame().to_string(index=False))
+
+def monthly_sales(df2):
+    df2["mod_dt"]=df2.Date.str[6:]+"-"+df2.Date.str[3:5]
+    return df2.groupby(["mod_dt"])["Weekly_Sales"].sum().reset_index('mod_dt').sort_values('mod_dt',ascending=True)
+
+def semester_sales(df2):
+    df2["mod_dt"]=df2.Date.str[6:]+"-"+df2.Date.str[3:5]
+    df2["semester"]=np.where(df2.mod_dt.str[5:7].astype('int64')<=6,df2.mod_dt.str[:4]+' - First Sem',df2.mod_dt.str[:4]+' - Second Sem')
+    return df2.groupby(["semester"])["Weekly_Sales"].sum().reset_index('semester').sort_values('semester',ascending=True)
