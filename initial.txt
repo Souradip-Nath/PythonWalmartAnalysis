@@ -1,1 +1,2 @@
 This is the first commit.
+Linear Reg vid link: https://www.youtube.com/watch?v=gOXoFDrseis
